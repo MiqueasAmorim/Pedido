@@ -38,4 +38,11 @@ public class ProdutoTest {
         RuntimeException e = Assert.assertThrows(RuntimeException.class, () -> new Produto(null, 5.0, 10));
         assertEquals(e.getMessage(), "Nome inválido: null");
     }
+    
+    // O valor da quantidade do produto não pode ser negativo
+    @Test 
+    public void CT04() {
+        RuntimeException e = Assert.assertThrows(RuntimeException.class, () -> new Produto("Borracha", 5.0, -6));
+        assertEquals(e.getMessage(), "Valor de quantidade inválido: -6");
+    }
 }
