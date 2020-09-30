@@ -21,28 +21,28 @@ public class ProdutoTest {
     // O valor unitário do produto não pode ser 0
     @Test 
     public void CT01() {
-        Exception e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", 0, 10));
+        IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", 0, 10));
         assertEquals(e.getMessage(), "Valor inválido: 0.0");
     }
     
     // O valor unitário do produto não pode ser negativo
     @Test 
     public void CT02() {
-        RuntimeException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", -1.5, 10));
+        IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", -1.5, 10));
         assertEquals(e.getMessage(), "Valor inválido: -1.5");
     }
     
     // O nome do produto não pode ser null
     @Test 
     public void CT03() {
-        RuntimeException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto(null, 5.0, 10));
+        IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto(null, 5.0, 10));
         assertEquals(e.getMessage(), "Nome inválido: null");
     }
     
     // O valor da quantidade do produto não pode ser negativo
     @Test 
     public void CT04() {
-        RuntimeException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", 5.0, -6));
+        IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", 5.0, -6));
         assertEquals(e.getMessage(), "Valor de quantidade inválido: -6");
     }
 }
