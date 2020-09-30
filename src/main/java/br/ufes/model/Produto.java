@@ -5,12 +5,12 @@ public final class Produto {
     private String nome;
     private double valorUnitario;
     private double valorUltimaCompra;
-    private double quantidade;
+    private Integer quantidade;
 
-    public Produto(String nome, double valorUnitario, double quantidade) {
-        this.nome = nome;
+    public Produto(String nome, double valorUnitario, Integer quantidade) {
+        setNome(nome);
         setValorUnitario(valorUnitario);
-        this.quantidade = quantidade;
+        setQuantidade(quantidade);
     }
 
     public boolean estoqueDisponivel(double quantidadeNecessaria) {
@@ -47,7 +47,14 @@ public final class Produto {
         this.valorUltimaCompra = this.valorUnitario;
         this.valorUnitario = valorUnitario;
     }
-
+    
+    public void setQuantidade(Integer quantidade) {
+        if (quantidade < 0) {
+            throw new IllegalArgumentException("Valor de quantidade inválido: " + quantidade);
+        }
+        this.quantidade = quantidade;
+    }
+    
     @Override
     public String toString() {
         return "Produto: " + nome
