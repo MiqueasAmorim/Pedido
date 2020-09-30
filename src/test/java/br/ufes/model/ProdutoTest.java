@@ -6,6 +6,7 @@
 package br.ufes.model;
 
 import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -20,6 +21,7 @@ public class ProdutoTest {
     // O valor unitário do produto não pode ser 0
     @Test 
     public void CT01() {
-        Assert.assertThrows(RuntimeException.class, () -> new Produto("Borracha", 0, 10));
+        Exception e = Assert.assertThrows(RuntimeException.class, () -> new Produto("Borracha", 0, 10));
+        assertEquals(e.getMessage(), "Valor inválido: 0.0");
     }
 }
