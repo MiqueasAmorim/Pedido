@@ -2,12 +2,12 @@ package br.ufes.model;
 
 public final class Cliente {
 
-    private final String nome;
-    private final String CNPJOuCPF;
+    private String nome;
+    private String CNPJOuCPF;
 
     public Cliente(String nome, String codigo) {
-        this.nome = nome;
-        this.CNPJOuCPF = codigo;
+        setNome(nome);
+        setCNPJOuCPF(codigo);
     }
 
     public String getNome() {
@@ -16,6 +16,20 @@ public final class Cliente {
 
     public String getCNPJOuCPF() {
         return CNPJOuCPF;
+    }
+    
+    public void setNome(String nome){
+        if (nome == null) {
+            throw new IllegalArgumentException("Nome inválido");
+        }
+        this.nome = nome;
+    }
+    
+    public void setCNPJOuCPF(String codigo){
+        if (codigo == null) {
+            throw new IllegalArgumentException("CNPJ/CPF inválido");
+        }
+        this.CNPJOuCPF = codigo;
     }
 
     @Override
