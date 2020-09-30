@@ -17,9 +17,17 @@ public class ClienteTest {
     public ClienteTest() {
     }
     
+    // Nome não pode ser null
     @Test
     public void CT01() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new Cliente(null, "123.456.789-01"));
         assertEquals(e.getMessage(), "Nome inválido");
+    }
+    
+    // CNPJ/CPF não pode ser null
+    @Test
+    public void CT02() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new Cliente("Fulano", null));
+        assertEquals(e.getMessage(), "CNPJ/CPF inválido");
     }
 }
