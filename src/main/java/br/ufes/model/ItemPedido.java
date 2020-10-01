@@ -5,13 +5,13 @@ import java.text.DecimalFormat;
 public final class ItemPedido {
 
     protected double valorUnitario;
-    protected double quantidade;
+    protected Integer quantidade;
     protected double valorItem;
     protected Produto produto;
 
-    public ItemPedido(Produto produto, double quantidadeAdquirida) {
+    public ItemPedido(Produto produto, Integer quantidadeAdquirida) {
         if (!produto.estoqueDisponivel(quantidadeAdquirida)) {
-            throw new RuntimeException("Estoque indisponível para atender a quantidade solicitada (" + quantidadeAdquirida
+                throw new RuntimeException("Estoque indisponível para atender a quantidade solicitada (" + quantidadeAdquirida
                     + ") para o produto " + produto.getNome()
                     + ", restam " + produto.getQuantidade() + " em estoque.");
         }
@@ -29,7 +29,7 @@ public final class ItemPedido {
         return valorUnitario;
     }
 
-    public double getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 

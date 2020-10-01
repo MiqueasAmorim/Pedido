@@ -29,7 +29,7 @@ public final class Produto {
         return valorUltimaCompra;
     }
 
-    public double getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 

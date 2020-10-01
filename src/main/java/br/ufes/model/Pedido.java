@@ -19,7 +19,7 @@ public final class Pedido {
     protected final LocalDate data;
     protected final LocalDate dataVencimento;
 
-    public Pedido(Cliente cliente, Produto produto, double quantidade, LocalDate data) {
+    public Pedido(Cliente cliente, Produto produto, Integer quantidade, LocalDate data) {
         if (cliente == null) {
             throw new RuntimeException("Informe um cliente válido");
         }
@@ -29,7 +29,7 @@ public final class Pedido {
         this.addItem(produto, quantidade);
     }
 
-    public final void addItem(Produto produto, double quantidade) {
+    public final void addItem(Produto produto, Integer quantidade) {
         if (quantidade <= 0) {
             throw new RuntimeException("Informe uma quantidade válida!");
         }
