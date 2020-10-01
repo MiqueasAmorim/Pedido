@@ -44,4 +44,26 @@ public class PedidoTest {
         
         assertEquals(e.getMessage(), "Produto já existe! Remova-o ou altere a quantidade");
     }
+    
+    // Deve ser possível adicionar um novo produto no pedido
+    @Test
+    public void CT03() {
+        Produto produtoCaneta = new Produto("Caneta", 1.5, 8);
+
+        Cliente cliente = new Cliente("Fulano", "123.456.789-01");
+
+        Pedido pedido = new Pedido(cliente,
+                produtoCaneta, 5,
+                LocalDate.now()
+        );
+        
+        Produto produtoBorracha = new Produto("Borracha", 0.5, 5);
+        
+        pedido.addItem(produtoBorracha, 2);
+        
+        Produto ultimoProdutoDoPedido = pedido.getItens().get(1).getProduto();
+        
+        assertEquals(ultimoProdutoDoPedido, produtoBorracha);
+        
+    }
 }
