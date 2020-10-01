@@ -6,6 +6,7 @@
 package br.ufes.model;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -39,12 +40,12 @@ public class PedidoTest {
                 produto, 5,
                 LocalDate.now()
         );
-        
+
         RuntimeException e = assertThrows(RuntimeException.class, () -> pedido.addItem(produto, 1));
-        
+
         assertEquals(e.getMessage(), "Produto já existe! Remova-o ou altere a quantidade");
     }
-    
+
     // Deve ser possível adicionar um novo produto no pedido
     @Test
     public void CT03() {
@@ -56,14 +57,35 @@ public class PedidoTest {
                 produtoCaneta, 5,
                 LocalDate.now()
         );
-        
+
         Produto produtoBorracha = new Produto("Borracha", 0.5, 5);
-        
+
         pedido.addItem(produtoBorracha, 2);
-        
+
         Produto ultimoProdutoDoPedido = pedido.getItens().get(1).getProduto();
-        
+
         assertEquals(ultimoProdutoDoPedido, produtoBorracha);
+
+    }
+
+    // Deve ser possível remover um item de pedido
+    @Test
+    public void CT04() {
+        Pedido pedido = new Pedido(
+                new Cliente("Fulano", "123.456.789-01"),
+                new Produto("Caneta", 1.5, 8), 5,
+                LocalDate.now()
+        );
+
+        pedido.addItem(new Produto("Borracha", 0.5, 5), 2);
+        pedido.addItem(new Produto("Lápis", 1.0, 10), 2);
+      
+        pedido.removerItem("Borracha");
         
+        Optional<ItemPedido> optional = pedido.getItemPorNome("Borracha");
+        
+        boolean hasBorracha = optional.isPresent();
+        
+        assertFalse(hasBorracha);
     }
 }
