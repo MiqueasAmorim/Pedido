@@ -88,4 +88,19 @@ public class PedidoTest {
         
         assertFalse(hasBorracha);
     }
+    
+    // Valor final a pagar deve ter um desconto de 5%
+    @Test
+    public void CT05() {
+        Pedido pedido = new Pedido(
+                new Cliente("Fulano", "123.456.789-01"),
+                new Produto("Caneta", 1.5, 20), 10,
+                LocalDate.now()
+        );
+
+        pedido.addItem(new Produto("Lápis", 1.0, 10), 5);
+        
+        assertEquals(pedido.getValorAPagar(), 19.0, 0.001);
+        
+    }
 }
