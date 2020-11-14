@@ -14,7 +14,7 @@ public final class Cliente {
         return nome;
     }
 
-    public String getCNPJOuCPF() {
+    public String getCnpjOuCpf() {
         return CNPJOuCPF;
     }
     
