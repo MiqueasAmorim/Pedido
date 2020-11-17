@@ -3,7 +3,7 @@ package br.ufes.model;
 public final class Cliente {
 
     private String nome;
-    private String CnpjOuCpf;
+    private String cnpjOuCpf;
 
     public Cliente(String nome, String codigo) {
         setNome(nome);
@@ -15,7 +15,7 @@ public final class Cliente {
     }
 
     public String getCnpjOuCpf() {
-        return CnpjOuCpf;
+        return cnpjOuCpf;
     }
     
     public void setNome(String nome){
@@ -29,12 +29,12 @@ public final class Cliente {
         if (codigo == null) {
             throw new IllegalArgumentException("CNPJ/CPF inválido");
         }
-        this.CnpjOuCpf = codigo;
+        this.cnpjOuCpf = codigo;
     }
 
     @Override
     public String toString() {
-        return "Cliente: " + nome + ", CNPJ/CPF = " + CnpjOuCpf;
+        return "Cliente: " + nome + ", CNPJ/CPF = " + cnpjOuCpf;
     }
 
 }
