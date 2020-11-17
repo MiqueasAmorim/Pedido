@@ -26,7 +26,7 @@ public class PedidoTest {
     public void CT01() {
         Produto produto = new Produto("Lápis", 1.5, 10);
         Exception e = Assert.assertThrows(RuntimeException.class, () -> new Pedido(null, produto, 5, LocalDate.now()));
-        assertEquals(e.getMessage(), "Informe um cliente válido");
+        assertEquals("Informe um cliente válido", e.getMessage());
     }
 
     // Não deve ser possível adicionar o mesmo produto no pedido
@@ -43,7 +43,7 @@ public class PedidoTest {
 
         RuntimeException e = assertThrows(RuntimeException.class, () -> pedido.addItem(produto, 1));
 
-        assertEquals(e.getMessage(), "Produto já existe! Remova-o ou altere a quantidade");
+        assertEquals("Produto já existe! Remova-o ou altere a quantidade", e.getMessage());
     }
 
     // Deve ser possível adicionar um novo produto no pedido
@@ -64,7 +64,7 @@ public class PedidoTest {
 
         Produto ultimoProdutoDoPedido = pedido.getItens().get(1).getProduto();
 
-        assertEquals(ultimoProdutoDoPedido, produtoBorracha);
+        assertEquals(produtoBorracha, ultimoProdutoDoPedido);
 
     }
 
@@ -100,7 +100,7 @@ public class PedidoTest {
 
         pedido.addItem(new Produto("Lápis", 1.0, 10), 5);
         
-        assertEquals(pedido.getValorAPagar(), 19.0, 0.001);
+        assertEquals(19.0, pedido.getValorAPagar(), 0.001);
         
     }
 }

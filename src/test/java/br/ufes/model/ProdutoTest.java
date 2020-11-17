@@ -22,27 +22,27 @@ public class ProdutoTest {
     @Test 
     public void CT01() {
         IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", 0, 10));
-        assertEquals(e.getMessage(), "Valor inválido: 0.0");
+        assertEquals("Valor inválido: 0.0", e.getMessage());
     }
     
     // O valor unitário do produto não pode ser negativo
     @Test 
     public void CT02() {
         IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", -1.5, 10));
-        assertEquals(e.getMessage(), "Valor inválido: -1.5");
+        assertEquals("Valor inválido: -1.5", e.getMessage());
     }
     
     // O nome do produto não pode ser null
     @Test 
     public void CT03() {
         IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto(null, 5.0, 10));
-        assertEquals(e.getMessage(), "Nome inválido: null");
+        assertEquals("Nome inválido: null", e.getMessage());
     }
     
     // O valor da quantidade do produto não pode ser negativo
     @Test 
     public void CT04() {
         IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", 5.0, -6));
-        assertEquals(e.getMessage(), "Valor de quantidade inválido: -6");
+        assertEquals("Valor de quantidade inválido: -6", e.getMessage());
     }
 }

@@ -23,7 +23,7 @@ public class ItemPedidoTest {
     public void CT01() {
         Produto produto = new Produto("Caneta", 1.50, 10);
         RuntimeException e = assertThrows(RuntimeException.class, () -> new ItemPedido(produto, 12));
-        assertEquals(e.getMessage(), 
-            "Estoque indisponível para atender a quantidade solicitada (12) para o produto Caneta, restam 10 em estoque.");
+        assertEquals("Estoque indisponível para atender a quantidade solicitada (12) para o produto Caneta, restam 10 em estoque.",
+                e.getMessage());
     }
 }
