@@ -12,7 +12,7 @@ public final class Pedido {
 
     protected Cliente cliente;
     protected double valor;
-    protected static final double desconto = 0.05;
+    protected static final double DESCONTO = 0.05;
     protected double valorDesconto;
     protected double valorAPagar;
     protected final ArrayList<ItemPedido> itens = new ArrayList<>();
@@ -63,7 +63,7 @@ public final class Pedido {
     }
 
     private void aplicarDesconto() {
-        this.valorDesconto = valor * desconto;
+        this.valorDesconto = valor * DESCONTO;
         this.valorAPagar = valor - valorDesconto;
     }
 
@@ -91,7 +91,7 @@ public final class Pedido {
     }
 
     public double getDesconto() {
-        return desconto;
+        return DESCONTO;
     }
 
     public double getValorAPagar() {
@@ -114,7 +114,7 @@ public final class Pedido {
         retorno += "Data: " + data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ", ";
         retorno += "Data de vencimento: " + dataVencimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "\n";
         retorno += "Valor sem desconto: R$ " + df.format(getValor()) + "\n";
-        retorno += "Desconto: R$: " + df.format(valorDesconto) + " (" + desconto * 100 + "%)\n";
+        retorno += "Desconto: R$: " + df.format(valorDesconto) + " (" + DESCONTO * 100 + "%)\n";
         retorno += "Valor a pagar: R$ " + df.format(valorAPagar) + "\n";
         retorno += "Itens do pedido:\n";
         StringBuilder bld = new StringBuilder();
