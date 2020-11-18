@@ -25,7 +25,8 @@ public class PedidoTest {
     @Test
     public void CT01() {
         Produto produto = new Produto("Lápis", 1.5, 10);
-        Exception e = Assert.assertThrows(RuntimeException.class, () -> new Pedido(null, produto, 5, LocalDate.now()));
+        LocalDate date = LocalDate.now();
+        Exception e = Assert.assertThrows(RuntimeException.class, () -> new Pedido(null, produto, 5, date));
         assertEquals("Informe um cliente válido", e.getMessage());
     }
 
