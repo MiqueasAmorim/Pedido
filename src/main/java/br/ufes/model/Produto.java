@@ -44,7 +44,7 @@ public final class Produto {
         if (valorUnitario <= 0) {
             throw new IllegalArgumentException("Valor inválido: " + valorUnitario);
         }
-        this.valorUltimaCompra = this.valorUnitario;
+        this.valorUltimaCompra = valorUnitario;
         this.valorUnitario = valorUnitario;
     }
 
