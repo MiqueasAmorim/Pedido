@@ -45,4 +45,11 @@ public class ProdutoTest {
         IllegalArgumentException e = Assert.assertThrows(IllegalArgumentException.class, () -> new Produto("Borracha", 5.0, -6));
         assertEquals("Valor de quantidade inválido: -6", e.getMessage());
     }
+    
+    // Valor da última compra deve ser retornado corretamente
+    @Test
+    public void CT05() {
+        Produto produto = new Produto("Borracha Preta", 1.5, 10);
+        assertEquals(1.5, produto.getValorUltimaCompra(), 0.01 );
+    }
 }
