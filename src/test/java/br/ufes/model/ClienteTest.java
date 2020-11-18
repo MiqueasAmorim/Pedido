@@ -30,4 +30,18 @@ public class ClienteTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new Cliente("Fulano", null));
         assertEquals("CNPJ/CPF inválido", e.getMessage());
     }
+    
+    // Deve retornar o nome corretamente
+    @Test
+    public void CT03() {
+        Cliente cliente = new Cliente("Fulano", "145.856.466-56");
+        assertEquals("Fulano", cliente.getNome());
+    }
+    
+    // Deve retornar o cpf/cnpj corretamente
+    @Test
+    public void CT04() {
+        Cliente cliente = new Cliente("Fulano", "145.856.466-56");
+        assertEquals("145.856.466-56", cliente.getCnpjOuCpf());
+    }
 }
