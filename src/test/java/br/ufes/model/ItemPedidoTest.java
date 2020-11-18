@@ -26,4 +26,20 @@ public class ItemPedidoTest {
         assertEquals("Estoque indisponível para atender a quantidade solicitada (12) para o produto Caneta, restam 10 em estoque.",
                 e.getMessage());
     }
+    
+    // Deve retornar o valor unitário corretamente
+    @Test
+    public void CT02() {
+       Produto produto = new Produto("Caneta", 1.50, 10);
+       ItemPedido itemPedido = new ItemPedido(produto, 5);
+       assertEquals(1.5, itemPedido.getValorUnitario(), 0.01);
+    }
+    
+    // Deve retornar o quantidade corretamente
+    @Test
+    public void CT03() {
+       Produto produto = new Produto("Caneta", 1.50, 10);
+       ItemPedido itemPedido = new ItemPedido(produto, 5);
+       assertEquals(5, itemPedido.getQuantidade(), 0.01);
+    }
 }
