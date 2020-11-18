@@ -47,20 +47,22 @@ public final class Produto {
         this.valorUltimaCompra = this.valorUnitario;
         this.valorUnitario = valorUnitario;
     }
-    
+
     public void setQuantidade(Integer quantidade) {
         if (quantidade < 0) {
             throw new IllegalArgumentException("Valor de quantidade inválido: " + quantidade);
         }
         this.quantidade = quantidade;
     }
-    
+
     @Override
     public String toString() {
-        return "Produto: " + nome
-                + ", valor unitario: R$" + valorUnitario
-                + ", valor da ultima compra: R$" + valorUltimaCompra
-                + ", quantidade em estoque: " + quantidade;
+        StringBuilder bld = new StringBuilder();
+        bld.append("Produto: ").append(nome)
+                .append(", valor unitario: R$").append(valorUnitario)
+                .append(", valor da ultima compra: R$").append(valorUltimaCompra)
+                .append(", quantidade em estoque: ").append(quantidade);
+        return bld.toString();
     }
 
 }

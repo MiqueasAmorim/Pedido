@@ -1,5 +1,9 @@
 package br.ufes.model;
 
+import exception.ClienteInvalidoException;
+import exception.ItemNaoEncontradoException;
+import exception.ProdutoJaExistenteException;
+import exception.QuantidadeProdutoException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -21,7 +25,7 @@ public final class Pedido {
 
     public Pedido(Cliente cliente, Produto produto, Integer quantidade, LocalDate data) {
         if (cliente == null) {
-            throw new RuntimeException("Informe um cliente válido");
+            throw new ClienteInvalidoException("Informe um cliente válido");
         }
         this.cliente = cliente;
         this.data = data;
@@ -31,10 +35,10 @@ public final class Pedido {
 
     public final void addItem(Produto produto, Integer quantidade) {
         if (quantidade <= 0) {
-            throw new RuntimeException("Informe uma quantidade válida!");
+            throw new QuantidadeProdutoException("Informe uma quantidade válida!");
         }
         if (this.getItemPorNome(produto.getNome()).isPresent()) {
-            throw new RuntimeException("Produto já existe! Remova-o ou altere a quantidade");
+            throw new ProdutoJaExistenteException("Produto já existe! Remova-o ou altere a quantidade");
         }
         itens.add(new ItemPedido(produto, quantidade));
         calcularValor();
@@ -71,7 +75,7 @@ public final class Pedido {
 
         Optional<ItemPedido> produtoEncontrado = getItemPorNome(nomeProduto);
         if (!produtoEncontrado.isPresent()) {
-            throw new RuntimeException("Item " + nomeProduto + " não encontrado");
+            throw new ItemNaoEncontradoException("Item " + nomeProduto + " não encontrado");
         }
 
         itens.remove(produtoEncontrado.get());
@@ -109,21 +113,20 @@ public final class Pedido {
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.00");
-        String retorno = "--------------- Pedido --------------\n";
-        retorno += cliente + "\n";
-        retorno += "Data: " + data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ", ";
-        retorno += "Data de vencimento: " + dataVencimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "\n";
-        retorno += "Valor sem desconto: R$ " + df.format(getValor()) + "\n";
-        retorno += "Desconto: R$: " + df.format(valorDesconto) + " (" + DESCONTO * 100 + "%)\n";
-        retorno += "Valor a pagar: R$ " + df.format(valorAPagar) + "\n";
-        retorno += "Itens do pedido:\n";
-        StringBuilder bld = new StringBuilder();
-        for (ItemPedido item : itens) {
-            bld.append("\t- " + item.toString() + "\n");
-        }
-        retorno = bld.toString();
+        StringBuilder bld = new StringBuilder("--------------- Pedido --------------\n")
+                .append(cliente).append("\n")
+                .append("Data: ").append(data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))).append(", ")
+                .append("Data de vencimento: ").append(dataVencimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))).append("\n")
+                .append("Valor sem desconto: R$ ").append(df.format(getValor())).append("\n")
+                .append("Desconto: R$: ").append(df.format(valorDesconto)).append(" (").append(DESCONTO * 100).append("%)\n")
+                .append("Valor a pagar: R$ ").append(df.format(valorAPagar)).append("\n")
+                .append("Itens do pedido:\n");
+        
+        itens.forEach(item -> {
+            bld.append("\t- ").append(item.toString()).append("\n");
+        });
 
-        return retorno;
+        return bld.toString();
     }
 
 }

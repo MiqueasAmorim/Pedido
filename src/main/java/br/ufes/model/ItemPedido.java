@@ -1,5 +1,6 @@
 package br.ufes.model;
 
+import exception.EstoqueIndisponivelException;
 import java.text.DecimalFormat;
 
 public final class ItemPedido {
@@ -11,7 +12,7 @@ public final class ItemPedido {
 
     public ItemPedido(Produto produto, Integer quantidadeAdquirida) {
         if (!produto.estoqueDisponivel(quantidadeAdquirida)) {
-                throw new RuntimeException("Estoque indisponível para atender a quantidade solicitada (" + quantidadeAdquirida
+            throw new EstoqueIndisponivelException("Estoque indisponível para atender a quantidade solicitada (" + quantidadeAdquirida
                     + ") para o produto " + produto.getNome()
                     + ", restam " + produto.getQuantidade() + " em estoque.");
         }
@@ -45,10 +46,12 @@ public final class ItemPedido {
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.00");
-        return produto.getNome()
-                + ", valor Unitario: R$ " + valorUnitario
-                + ", quantidade no pedido:" + quantidade
-                + ", valor Total: R$ " + df.format(getValorItem());
+        StringBuilder bld = new StringBuilder();
+        bld.append(produto.getNome())
+                .append(", valor Unitario: R$ ").append(valorUnitario)
+                .append(", quantidade no pedido:").append(quantidade)
+                .append(", valor Total: R$ ").append(df.format(getValorItem()));
+        return bld.toString();
     }
 
 }
