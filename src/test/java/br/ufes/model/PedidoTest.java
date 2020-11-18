@@ -8,6 +8,7 @@ package br.ufes.model;
 import exception.ItemNaoEncontradoException;
 import exception.QuantidadeProdutoException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Optional;
 import org.junit.Assert;
 import org.junit.Test;
@@ -82,16 +83,16 @@ public class PedidoTest {
 
         pedido.addItem(new Produto("Borracha", 0.5, 5), 2);
         pedido.addItem(new Produto("Lápis", 1.0, 10), 2);
-      
+
         pedido.removerItem("Borracha");
-        
+
         Optional<ItemPedido> optional = pedido.getItemPorNome("Borracha");
-        
+
         boolean hasBorracha = optional.isPresent();
-        
+
         assertFalse(hasBorracha);
     }
-    
+
     // Valor final a pagar deve ter um desconto de 5%
     @Test
     public void CT05() {
@@ -102,11 +103,11 @@ public class PedidoTest {
         );
 
         pedido.addItem(new Produto("Lápis", 1.0, 10), 5);
-        
+
         assertEquals(19.0, pedido.getValorAPagar(), 0.001);
-        
+
     }
-    
+
     // Adicionar produto com uma quantidade igual a zero deve levantar exceção QuantidadeProdutoException
     @Test
     public void CT06() {
@@ -115,13 +116,13 @@ public class PedidoTest {
                 new Produto("Caneta", 1.5, 20), 10,
                 LocalDate.now()
         );
-        
-        Produto produto = new Produto("Lápis", 1.0, 10); 
+
+        Produto produto = new Produto("Lápis", 1.0, 10);
 
         Exception e = Assert.assertThrows(QuantidadeProdutoException.class, () -> pedido.addItem(produto, 0));
         assertEquals("Informe uma quantidade válida!", e.getMessage());
     }
-    
+
     // Tentar remover um item que não está na lista de itens do pedido deve levantar exceção ItemNaoEncontradoException
     @Test
     public void CT07() {
@@ -130,11 +131,11 @@ public class PedidoTest {
                 new Produto("Caneta", 1.5, 20), 10,
                 LocalDate.now()
         );
-        
+
         Exception e = Assert.assertThrows(ItemNaoEncontradoException.class, () -> pedido.removerItem("borracha azul"));
         assertEquals("Item borracha azul não encontrado", e.getMessage());
     }
-    
+
     // Deve retornar o valor do desconto corretamente
     // Pedido contendo 1 produto com valor de R$ 10,00
     // O valor de desconto deve ser R$ 0,5
@@ -145,7 +146,66 @@ public class PedidoTest {
                 new Produto("Caneta", 10, 20), 1,
                 LocalDate.now()
         );
-        
+
         assertEquals(0.5, pedido.getValorDesconto(), 0.01);
+    }
+
+    // Deve retornar a data do pedido corretamente
+    @Test
+    public void CT09() {
+        LocalDate dataPedido = LocalDate.of(2020, Month.MARCH, 5);
+        Pedido pedido = new Pedido(
+                new Cliente("Fulano", "123.456.789-01"),
+                new Produto("Caneta", 10, 20), 1,
+                dataPedido
+        );
+        assertEquals(dataPedido, pedido.getData());
+    }
+    
+    // Deve retornar a data de vencimento corretamente
+    @Test
+    public void CT10() {
+        LocalDate dataPedido = LocalDate.of(2020, Month.MARCH, 5);
+        LocalDate dataVencimentoEsperada = LocalDate.of(2020, Month.APRIL, 5);
+        Pedido pedido = new Pedido(
+                new Cliente("Fulano", "123.456.789-01"),
+                new Produto("Caneta", 10, 20), 1,
+                dataPedido
+        );
+        assertEquals(dataVencimentoEsperada, pedido.getDataVencimento());
+    }
+    
+    // Deve retornar o valor do pedido corretamente
+    @Test
+    public void CT11() {
+        Pedido pedido = new Pedido(
+                new Cliente("Fulano", "123.456.789-01"),
+                new Produto("Caneta", 1.5, 20), 2,
+                LocalDate.now()
+        );
+        assertEquals(3, pedido.getValor(), 0.01);
+    }
+    
+    // Deve retornar a porcentagem do desconto corretamente (0.05)
+    @Test
+    public void CT12() {
+        Pedido pedido = new Pedido(
+                new Cliente("Fulano", "123.456.789-01"),
+                new Produto("Caneta", 1.5, 20), 2,
+                LocalDate.now()
+        );
+        assertEquals(0.05, pedido.getDesconto(), 0.01);
+    }
+    
+    // Deve retornar o cliente corretamente
+    @Test
+    public void CT13() {
+        Cliente cliente = new Cliente("Fulano", "123.456.789-01");
+        Pedido pedido = new Pedido(
+                cliente,
+                new Produto("Caneta", 1.5, 20), 2,
+                LocalDate.now()
+        );
+        assertEquals(cliente, pedido.getCliente());
     }
 }
