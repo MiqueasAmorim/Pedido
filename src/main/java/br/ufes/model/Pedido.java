@@ -121,10 +121,8 @@ public final class Pedido {
                 .append("Desconto: R$: ").append(df.format(valorDesconto)).append(" (").append(DESCONTO * 100).append("%)\n")
                 .append("Valor a pagar: R$ ").append(df.format(valorAPagar)).append("\n")
                 .append("Itens do pedido:\n");
-        
-        itens.forEach(item -> {
-            bld.append("\t- ").append(item.toString()).append("\n");
-        });
+
+        itens.forEach(item -> bld.append("\t- ").append(item.toString()).append("\n"));
 
         return bld.toString();
     }
